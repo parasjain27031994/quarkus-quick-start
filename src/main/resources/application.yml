@@ -1,0 +1,38 @@
+quarkus:
+  s3:
+    aws:
+      region: us-east-1
+      credentials:
+        type: ENV_VARIABLE
+  rest-client:
+    follow-redirects: true
+    logging:
+      scope: request-response
+      body-limit: 500
+    lorem-picsum-api:
+      url: https://picsum.photos
+  log:
+    level: DEBUG
+    console:
+      json: ${LOG_FORMAT_JSON:false}
+
+
+app:
+  env:
+    s3:
+      bucket: ${S3_BUCKET:<bucket_name>}
+
+# Dev configurations and variables
+"%dev":
+  quarkus:
+    devservices:
+      enabled: false
+    s3:
+      devservices:
+        enabled: false
+      aws:
+        region: us-east-1
+        credentials:
+          type: PROFILE
+          profile-provider:
+            profile-name: "default"
